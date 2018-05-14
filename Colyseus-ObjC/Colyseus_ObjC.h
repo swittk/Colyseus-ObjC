@@ -15,5 +15,9 @@ FOUNDATION_EXPORT double Colyseus_ObjCVersionNumber;
 FOUNDATION_EXPORT const unsigned char Colyseus_ObjCVersionString[];
 
 // In this header, you should import all the public headers of your framework using statements like #import <Colyseus_ObjC/PublicHeader.h>
-
+#import <Colyseus_ObjC/PSWebSocket.h>
+#import <Colyseus_ObjC/CLSClient.h>
+#import <Colyseus_ObjC/CLSRoom.h>
+#import <Colyseus_ObjC/MessageEventArgs.h>
+#import <Colyseus_ObjC/Protocol.h>
 

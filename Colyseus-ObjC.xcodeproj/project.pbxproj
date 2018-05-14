@@ -8,12 +8,141 @@
 
 /* Begin PBXBuildFile section */
 		4815E50920A5E28500112FB8 /* Colyseus_ObjC.h in Headers */ = {isa = PBXBuildFile; fileRef = 4815E50720A5E28500112FB8 /* Colyseus_ObjC.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		4815E81220A5E29800112FB8 /* Header.h in Headers */ = {isa = PBXBuildFile; fileRef = 4815E50F20A5E29300112FB8 /* Header.h */; };
+		4815EAB620A5E29900112FB8 /* fossilize.c in Sources */ = {isa = PBXBuildFile; fileRef = 4815E80320A5E29800112FB8 /* fossilize.c */; };
+		4815EB1520A5E81D00112FB8 /* PSWebSocketInflater.m in Sources */ = {isa = PBXBuildFile; fileRef = 4815EB0220A5E81C00112FB8 /* PSWebSocketInflater.m */; };
+		4815EB1620A5E81D00112FB8 /* PSWebSocketDeflater.m in Sources */ = {isa = PBXBuildFile; fileRef = 4815EB0320A5E81C00112FB8 /* PSWebSocketDeflater.m */; };
+		4815EB1720A5E81D00112FB8 /* PSWebSocketBuffer.h in Headers */ = {isa = PBXBuildFile; fileRef = 4815EB0420A5E81C00112FB8 /* PSWebSocketBuffer.h */; };
+		4815EB1820A5E81D00112FB8 /* PSWebSocketNetworkThread.h in Headers */ = {isa = PBXBuildFile; fileRef = 4815EB0520A5E81C00112FB8 /* PSWebSocketNetworkThread.h */; };
+		4815EB1920A5E81D00112FB8 /* PSWebSocketUTF8Decoder.m in Sources */ = {isa = PBXBuildFile; fileRef = 4815EB0620A5E81C00112FB8 /* PSWebSocketUTF8Decoder.m */; };
+		4815EB1A20A5E81D00112FB8 /* PSWebSocket.h in Headers */ = {isa = PBXBuildFile; fileRef = 4815EB0720A5E81C00112FB8 /* PSWebSocket.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		4815EB1B20A5E81D00112FB8 /* PSWebSocketInternal.h in Headers */ = {isa = PBXBuildFile; fileRef = 4815EB0820A5E81C00112FB8 /* PSWebSocketInternal.h */; };
+		4815EB1C20A5E81D00112FB8 /* PSWebSocketServer.h in Headers */ = {isa = PBXBuildFile; fileRef = 4815EB0920A5E81C00112FB8 /* PSWebSocketServer.h */; };
+		4815EB1D20A5E81D00112FB8 /* PSWebSocketDriver.m in Sources */ = {isa = PBXBuildFile; fileRef = 4815EB0A20A5E81C00112FB8 /* PSWebSocketDriver.m */; };
+		4815EB1E20A5E81D00112FB8 /* PSWebSocketBuffer.m in Sources */ = {isa = PBXBuildFile; fileRef = 4815EB0B20A5E81C00112FB8 /* PSWebSocketBuffer.m */; };
+		4815EB1F20A5E81D00112FB8 /* PSWebSocketDeflater.h in Headers */ = {isa = PBXBuildFile; fileRef = 4815EB0C20A5E81C00112FB8 /* PSWebSocketDeflater.h */; };
+		4815EB2020A5E81D00112FB8 /* PSWebSocketInflater.h in Headers */ = {isa = PBXBuildFile; fileRef = 4815EB0D20A5E81C00112FB8 /* PSWebSocketInflater.h */; };
+		4815EB2120A5E81D00112FB8 /* PSWebSocketUTF8Decoder.h in Headers */ = {isa = PBXBuildFile; fileRef = 4815EB0E20A5E81C00112FB8 /* PSWebSocketUTF8Decoder.h */; };
+		4815EB2220A5E81D00112FB8 /* PSWebSocketNetworkThread.m in Sources */ = {isa = PBXBuildFile; fileRef = 4815EB0F20A5E81C00112FB8 /* PSWebSocketNetworkThread.m */; };
+		4815EB2320A5E81D00112FB8 /* PSWebSocketTypes.h in Headers */ = {isa = PBXBuildFile; fileRef = 4815EB1020A5E81C00112FB8 /* PSWebSocketTypes.h */; };
+		4815EB2420A5E81D00112FB8 /* PocketSocket-Prefix.pch in Headers */ = {isa = PBXBuildFile; fileRef = 4815EB1120A5E81C00112FB8 /* PocketSocket-Prefix.pch */; };
+		4815EB2520A5E81D00112FB8 /* PSWebSocket.m in Sources */ = {isa = PBXBuildFile; fileRef = 4815EB1220A5E81C00112FB8 /* PSWebSocket.m */; };
+		4815EB2620A5E81D00112FB8 /* PSWebSocketDriver.h in Headers */ = {isa = PBXBuildFile; fileRef = 4815EB1320A5E81C00112FB8 /* PSWebSocketDriver.h */; };
+		4815EB2720A5E81D00112FB8 /* PSWebSocketServer.m in Sources */ = {isa = PBXBuildFile; fileRef = 4815EB1420A5E81C00112FB8 /* PSWebSocketServer.m */; };
+		4815EB2A20A5E84800112FB8 /* CFNetwork.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4815EB2920A5E84800112FB8 /* CFNetwork.framework */; };
+		4815EB2C20A5E85100112FB8 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4815EB2B20A5E85100112FB8 /* Foundation.framework */; };
+		4815EB2E20A5E85900112FB8 /* Security.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4815EB2D20A5E85900112FB8 /* Security.framework */; };
+		4815EB3020A5E86100112FB8 /* libSystem.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = 4815EB2F20A5E86100112FB8 /* libSystem.tbd */; };
+		4815EB3220A5E86700112FB8 /* libz.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = 4815EB3120A5E86700112FB8 /* libz.tbd */; };
+		482238B320A69415000E8D17 /* fossilize.h in Headers */ = {isa = PBXBuildFile; fileRef = 482238B220A69415000E8D17 /* fossilize.h */; };
+		482238B520A6BC01000E8D17 /* libc++.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = 482238B420A6BC00000E8D17 /* libc++.tbd */; };
+		482238B720A6BC11000E8D17 /* libc.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = 482238B620A6BC11000E8D17 /* libc.tbd */; };
+		482238B920A6BC28000E8D17 /* libstdc++.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = 482238B820A6BC28000E8D17 /* libstdc++.tbd */; };
+		482238D020A6C78C000E8D17 /* NSArray+MPMessagePack.h in Headers */ = {isa = PBXBuildFile; fileRef = 482238C120A6C78C000E8D17 /* NSArray+MPMessagePack.h */; };
+		482238D120A6C78C000E8D17 /* MPMessagePackWriter.h in Headers */ = {isa = PBXBuildFile; fileRef = 482238C220A6C78C000E8D17 /* MPMessagePackWriter.h */; };
+		482238D220A6C78C000E8D17 /* MPMessagePackReader.m in Sources */ = {isa = PBXBuildFile; fileRef = 482238C320A6C78C000E8D17 /* MPMessagePackReader.m */; };
+		482238D320A6C78C000E8D17 /* NSData+MPMessagePack.h in Headers */ = {isa = PBXBuildFile; fileRef = 482238C420A6C78C000E8D17 /* NSData+MPMessagePack.h */; };
+		482238D420A6C78C000E8D17 /* cmp.h in Headers */ = {isa = PBXBuildFile; fileRef = 482238C520A6C78C000E8D17 /* cmp.h */; };
+		482238D520A6C78C000E8D17 /* NSDictionary+MPMessagePack.h in Headers */ = {isa = PBXBuildFile; fileRef = 482238C620A6C78C000E8D17 /* NSDictionary+MPMessagePack.h */; };
+		482238D620A6C78C000E8D17 /* MPMessagePackWriter.m in Sources */ = {isa = PBXBuildFile; fileRef = 482238C720A6C78C000E8D17 /* MPMessagePackWriter.m */; };
+		482238D720A6C78C000E8D17 /* NSArray+MPMessagePack.m in Sources */ = {isa = PBXBuildFile; fileRef = 482238C820A6C78C000E8D17 /* NSArray+MPMessagePack.m */; };
+		482238D820A6C78C000E8D17 /* MPDefines.h in Headers */ = {isa = PBXBuildFile; fileRef = 482238C920A6C78C000E8D17 /* MPDefines.h */; };
+		482238D920A6C78C000E8D17 /* MPMessagePackReader.h in Headers */ = {isa = PBXBuildFile; fileRef = 482238CA20A6C78C000E8D17 /* MPMessagePackReader.h */; };
+		482238DA20A6C78C000E8D17 /* MPLog.h in Headers */ = {isa = PBXBuildFile; fileRef = 482238CB20A6C78C000E8D17 /* MPLog.h */; };
+		482238DB20A6C78C000E8D17 /* MPMessagePack.h in Headers */ = {isa = PBXBuildFile; fileRef = 482238CC20A6C78C000E8D17 /* MPMessagePack.h */; };
+		482238DC20A6C78C000E8D17 /* cmp.c in Sources */ = {isa = PBXBuildFile; fileRef = 482238CD20A6C78C000E8D17 /* cmp.c */; };
+		482238DD20A6C78C000E8D17 /* NSData+MPMessagePack.m in Sources */ = {isa = PBXBuildFile; fileRef = 482238CE20A6C78C000E8D17 /* NSData+MPMessagePack.m */; };
+		482238DE20A6C78C000E8D17 /* NSDictionary+MPMessagePack.m in Sources */ = {isa = PBXBuildFile; fileRef = 482238CF20A6C78C000E8D17 /* NSDictionary+MPMessagePack.m */; };
+		482238E420A6C81C000E8D17 /* GHODict.m in Sources */ = {isa = PBXBuildFile; fileRef = 482238E020A6C81B000E8D17 /* GHODict.m */; };
+		482238E520A6C81C000E8D17 /* GHODict.h in Headers */ = {isa = PBXBuildFile; fileRef = 482238E120A6C81B000E8D17 /* GHODict.h */; };
+		482238E620A6C81C000E8D17 /* GHODictionary.h in Headers */ = {isa = PBXBuildFile; fileRef = 482238E220A6C81B000E8D17 /* GHODictionary.h */; };
+		482238E720A6C81C000E8D17 /* Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 482238E320A6C81B000E8D17 /* Info.plist */; };
+		482238F720A7F972000E8D17 /* ColyseusClient.h in Headers */ = {isa = PBXBuildFile; fileRef = 482238F520A7F972000E8D17 /* ColyseusClient.h */; };
+		482238F820A7F972000E8D17 /* ColyseusClient.m in Sources */ = {isa = PBXBuildFile; fileRef = 482238F620A7F972000E8D17 /* ColyseusClient.m */; };
+		482238FC20A7FBCF000E8D17 /* ColyseusRoom.h in Headers */ = {isa = PBXBuildFile; fileRef = 482238FA20A7FBCF000E8D17 /* ColyseusRoom.h */; };
+		482238FD20A7FBCF000E8D17 /* ColyseusRoom.m in Sources */ = {isa = PBXBuildFile; fileRef = 482238FB20A7FBCF000E8D17 /* ColyseusRoom.m */; };
+		4822390020A808FA000E8D17 /* ColyseusConnection.h in Headers */ = {isa = PBXBuildFile; fileRef = 482238FE20A808FA000E8D17 /* ColyseusConnection.h */; };
+		4822390120A808FA000E8D17 /* ColyseusConnection.m in Sources */ = {isa = PBXBuildFile; fileRef = 482238FF20A808FA000E8D17 /* ColyseusConnection.m */; };
+		4822390320A8188B000E8D17 /* ColyseusObjCCommons.h in Headers */ = {isa = PBXBuildFile; fileRef = 4822390220A81886000E8D17 /* ColyseusObjCCommons.h */; };
+		4822390620A84144000E8D17 /* ColyseusStateContainer.h in Headers */ = {isa = PBXBuildFile; fileRef = 4822390420A84144000E8D17 /* ColyseusStateContainer.h */; };
+		4822390720A84144000E8D17 /* ColyseusStateContainer.m in Sources */ = {isa = PBXBuildFile; fileRef = 4822390520A84144000E8D17 /* ColyseusStateContainer.m */; };
+		4822390B20A842C6000E8D17 /* AXMutableOrderedDictionary.h in Headers */ = {isa = PBXBuildFile; fileRef = 4822390920A842C6000E8D17 /* AXMutableOrderedDictionary.h */; };
+		4822390C20A842C6000E8D17 /* AXMutableOrderedDictionary.m in Sources */ = {isa = PBXBuildFile; fileRef = 4822390A20A842C6000E8D17 /* AXMutableOrderedDictionary.m */; };
+		4822390F20A84551000E8D17 /* ColyseusCompare.h in Headers */ = {isa = PBXBuildFile; fileRef = 4822390D20A84551000E8D17 /* ColyseusCompare.h */; };
+		4822391020A84551000E8D17 /* ColyseusCompare.m in Sources */ = {isa = PBXBuildFile; fileRef = 4822390E20A84551000E8D17 /* ColyseusCompare.m */; };
+		4822391320A96545000E8D17 /* ColyseusMessageEventArgs.h in Headers */ = {isa = PBXBuildFile; fileRef = 4822391120A96545000E8D17 /* ColyseusMessageEventArgs.h */; };
+		4822391420A96545000E8D17 /* ColyseusMessageEventArgs.m in Sources */ = {isa = PBXBuildFile; fileRef = 4822391220A96545000E8D17 /* ColyseusMessageEventArgs.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
 		4815E50420A5E28500112FB8 /* Colyseus_ObjC.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Colyseus_ObjC.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		4815E50720A5E28500112FB8 /* Colyseus_ObjC.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = Colyseus_ObjC.h; sourceTree = "<group>"; };
 		4815E50820A5E28500112FB8 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		4815E50F20A5E29300112FB8 /* Header.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Header.h; sourceTree = "<group>"; };
+		4815E80320A5E29800112FB8 /* fossilize.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = fossilize.c; sourceTree = "<group>"; };
+		4815EB0220A5E81C00112FB8 /* PSWebSocketInflater.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PSWebSocketInflater.m; sourceTree = "<group>"; };
+		4815EB0320A5E81C00112FB8 /* PSWebSocketDeflater.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PSWebSocketDeflater.m; sourceTree = "<group>"; };
+		4815EB0420A5E81C00112FB8 /* PSWebSocketBuffer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PSWebSocketBuffer.h; sourceTree = "<group>"; };
+		4815EB0520A5E81C00112FB8 /* PSWebSocketNetworkThread.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PSWebSocketNetworkThread.h; sourceTree = "<group>"; };
+		4815EB0620A5E81C00112FB8 /* PSWebSocketUTF8Decoder.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PSWebSocketUTF8Decoder.m; sourceTree = "<group>"; };
+		4815EB0720A5E81C00112FB8 /* PSWebSocket.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PSWebSocket.h; sourceTree = "<group>"; };
+		4815EB0820A5E81C00112FB8 /* PSWebSocketInternal.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PSWebSocketInternal.h; sourceTree = "<group>"; };
+		4815EB0920A5E81C00112FB8 /* PSWebSocketServer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PSWebSocketServer.h; sourceTree = "<group>"; };
+		4815EB0A20A5E81C00112FB8 /* PSWebSocketDriver.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PSWebSocketDriver.m; sourceTree = "<group>"; };
+		4815EB0B20A5E81C00112FB8 /* PSWebSocketBuffer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PSWebSocketBuffer.m; sourceTree = "<group>"; };
+		4815EB0C20A5E81C00112FB8 /* PSWebSocketDeflater.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PSWebSocketDeflater.h; sourceTree = "<group>"; };
+		4815EB0D20A5E81C00112FB8 /* PSWebSocketInflater.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PSWebSocketInflater.h; sourceTree = "<group>"; };
+		4815EB0E20A5E81C00112FB8 /* PSWebSocketUTF8Decoder.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PSWebSocketUTF8Decoder.h; sourceTree = "<group>"; };
+		4815EB0F20A5E81C00112FB8 /* PSWebSocketNetworkThread.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PSWebSocketNetworkThread.m; sourceTree = "<group>"; };
+		4815EB1020A5E81C00112FB8 /* PSWebSocketTypes.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PSWebSocketTypes.h; sourceTree = "<group>"; };
+		4815EB1120A5E81C00112FB8 /* PocketSocket-Prefix.pch */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "PocketSocket-Prefix.pch"; sourceTree = "<group>"; };
+		4815EB1220A5E81C00112FB8 /* PSWebSocket.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PSWebSocket.m; sourceTree = "<group>"; };
+		4815EB1320A5E81C00112FB8 /* PSWebSocketDriver.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PSWebSocketDriver.h; sourceTree = "<group>"; };
+		4815EB1420A5E81C00112FB8 /* PSWebSocketServer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PSWebSocketServer.m; sourceTree = "<group>"; };
+		4815EB2920A5E84800112FB8 /* CFNetwork.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CFNetwork.framework; path = System/Library/Frameworks/CFNetwork.framework; sourceTree = SDKROOT; };
+		4815EB2B20A5E85100112FB8 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
+		4815EB2D20A5E85900112FB8 /* Security.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Security.framework; path = System/Library/Frameworks/Security.framework; sourceTree = SDKROOT; };
+		4815EB2F20A5E86100112FB8 /* libSystem.tbd */ = {isa = PBXFileReference; lastKnownFileType = "sourcecode.text-based-dylib-definition"; name = libSystem.tbd; path = usr/lib/libSystem.tbd; sourceTree = SDKROOT; };
+		4815EB3120A5E86700112FB8 /* libz.tbd */ = {isa = PBXFileReference; lastKnownFileType = "sourcecode.text-based-dylib-definition"; name = libz.tbd; path = usr/lib/libz.tbd; sourceTree = SDKROOT; };
+		482238B220A69415000E8D17 /* fossilize.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = fossilize.h; sourceTree = "<group>"; };
+		482238B420A6BC00000E8D17 /* libc++.tbd */ = {isa = PBXFileReference; lastKnownFileType = "sourcecode.text-based-dylib-definition"; name = "libc++.tbd"; path = "usr/lib/libc++.tbd"; sourceTree = SDKROOT; };
+		482238B620A6BC11000E8D17 /* libc.tbd */ = {isa = PBXFileReference; lastKnownFileType = "sourcecode.text-based-dylib-definition"; name = libc.tbd; path = usr/lib/libc.tbd; sourceTree = SDKROOT; };
+		482238B820A6BC28000E8D17 /* libstdc++.tbd */ = {isa = PBXFileReference; lastKnownFileType = "sourcecode.text-based-dylib-definition"; name = "libstdc++.tbd"; path = "usr/lib/libstdc++.tbd"; sourceTree = SDKROOT; };
+		482238BA20A6BC31000E8D17 /* libassertion_launchd.tbd */ = {isa = PBXFileReference; lastKnownFileType = "sourcecode.text-based-dylib-definition"; name = libassertion_launchd.tbd; path = usr/lib/libassertion_launchd.tbd; sourceTree = SDKROOT; };
+		482238C120A6C78C000E8D17 /* NSArray+MPMessagePack.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSArray+MPMessagePack.h"; sourceTree = "<group>"; };
+		482238C220A6C78C000E8D17 /* MPMessagePackWriter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MPMessagePackWriter.h; sourceTree = "<group>"; };
+		482238C320A6C78C000E8D17 /* MPMessagePackReader.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MPMessagePackReader.m; sourceTree = "<group>"; };
+		482238C420A6C78C000E8D17 /* NSData+MPMessagePack.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSData+MPMessagePack.h"; sourceTree = "<group>"; };
+		482238C520A6C78C000E8D17 /* cmp.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = cmp.h; sourceTree = "<group>"; };
+		482238C620A6C78C000E8D17 /* NSDictionary+MPMessagePack.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSDictionary+MPMessagePack.h"; sourceTree = "<group>"; };
+		482238C720A6C78C000E8D17 /* MPMessagePackWriter.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MPMessagePackWriter.m; sourceTree = "<group>"; };
+		482238C820A6C78C000E8D17 /* NSArray+MPMessagePack.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSArray+MPMessagePack.m"; sourceTree = "<group>"; };
+		482238C920A6C78C000E8D17 /* MPDefines.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MPDefines.h; sourceTree = "<group>"; };
+		482238CA20A6C78C000E8D17 /* MPMessagePackReader.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MPMessagePackReader.h; sourceTree = "<group>"; };
+		482238CB20A6C78C000E8D17 /* MPLog.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MPLog.h; sourceTree = "<group>"; };
+		482238CC20A6C78C000E8D17 /* MPMessagePack.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MPMessagePack.h; sourceTree = "<group>"; };
+		482238CD20A6C78C000E8D17 /* cmp.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = cmp.c; sourceTree = "<group>"; };
+		482238CE20A6C78C000E8D17 /* NSData+MPMessagePack.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSData+MPMessagePack.m"; sourceTree = "<group>"; };
+		482238CF20A6C78C000E8D17 /* NSDictionary+MPMessagePack.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSDictionary+MPMessagePack.m"; sourceTree = "<group>"; };
+		482238E020A6C81B000E8D17 /* GHODict.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GHODict.m; sourceTree = "<group>"; };
+		482238E120A6C81B000E8D17 /* GHODict.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GHODict.h; sourceTree = "<group>"; };
+		482238E220A6C81B000E8D17 /* GHODictionary.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GHODictionary.h; sourceTree = "<group>"; };
+		482238E320A6C81B000E8D17 /* Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		482238F520A7F972000E8D17 /* ColyseusClient.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ColyseusClient.h; sourceTree = "<group>"; };
+		482238F620A7F972000E8D17 /* ColyseusClient.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ColyseusClient.m; sourceTree = "<group>"; };
+		482238FA20A7FBCF000E8D17 /* ColyseusRoom.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ColyseusRoom.h; sourceTree = "<group>"; };
+		482238FB20A7FBCF000E8D17 /* ColyseusRoom.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ColyseusRoom.m; sourceTree = "<group>"; };
+		482238FE20A808FA000E8D17 /* ColyseusConnection.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ColyseusConnection.h; sourceTree = "<group>"; };
+		482238FF20A808FA000E8D17 /* ColyseusConnection.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ColyseusConnection.m; sourceTree = "<group>"; };
+		4822390220A81886000E8D17 /* ColyseusObjCCommons.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ColyseusObjCCommons.h; sourceTree = "<group>"; };
+		4822390420A84144000E8D17 /* ColyseusStateContainer.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ColyseusStateContainer.h; sourceTree = "<group>"; };
+		4822390520A84144000E8D17 /* ColyseusStateContainer.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ColyseusStateContainer.m; sourceTree = "<group>"; };
+		4822390920A842C6000E8D17 /* AXMutableOrderedDictionary.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AXMutableOrderedDictionary.h; sourceTree = "<group>"; };
+		4822390A20A842C6000E8D17 /* AXMutableOrderedDictionary.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AXMutableOrderedDictionary.m; sourceTree = "<group>"; };
+		4822390D20A84551000E8D17 /* ColyseusCompare.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ColyseusCompare.h; sourceTree = "<group>"; };
+		4822390E20A84551000E8D17 /* ColyseusCompare.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ColyseusCompare.m; sourceTree = "<group>"; };
+		4822391120A96545000E8D17 /* ColyseusMessageEventArgs.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ColyseusMessageEventArgs.h; sourceTree = "<group>"; };
+		4822391220A96545000E8D17 /* ColyseusMessageEventArgs.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ColyseusMessageEventArgs.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -21,6 +150,14 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				482238B920A6BC28000E8D17 /* libstdc++.tbd in Frameworks */,
+				482238B720A6BC11000E8D17 /* libc.tbd in Frameworks */,
+				482238B520A6BC01000E8D17 /* libc++.tbd in Frameworks */,
+				4815EB3220A5E86700112FB8 /* libz.tbd in Frameworks */,
+				4815EB3020A5E86100112FB8 /* libSystem.tbd in Frameworks */,
+				4815EB2E20A5E85900112FB8 /* Security.framework in Frameworks */,
+				4815EB2C20A5E85100112FB8 /* Foundation.framework in Frameworks */,
+				4815EB2A20A5E84800112FB8 /* CFNetwork.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -32,6 +169,7 @@
 			children = (
 				4815E50620A5E28500112FB8 /* Colyseus-ObjC */,
 				4815E50520A5E28500112FB8 /* Products */,
+				4815EB2820A5E84800112FB8 /* Frameworks */,
 			);
 			sourceTree = "<group>";
 		};
@@ -47,9 +185,121 @@
 			isa = PBXGroup;
 			children = (
 				4815E50720A5E28500112FB8 /* Colyseus_ObjC.h */,
+				482238B220A69415000E8D17 /* fossilize.h */,
+				4815E80320A5E29800112FB8 /* fossilize.c */,
+				4815E50F20A5E29300112FB8 /* Header.h */,
+				4822390820A842C6000E8D17 /* AXMutableOrderedDictionary */,
+				482238F920A7F976000E8D17 /* Colyseus */,
+				482238C020A6C78C000E8D17 /* MPMessagePack */,
+				4815EB0120A5E81C00112FB8 /* PocketSocket */,
 				4815E50820A5E28500112FB8 /* Info.plist */,
 			);
 			path = "Colyseus-ObjC";
+			sourceTree = "<group>";
+		};
+		4815EB0120A5E81C00112FB8 /* PocketSocket */ = {
+			isa = PBXGroup;
+			children = (
+				4815EB0720A5E81C00112FB8 /* PSWebSocket.h */,
+				4815EB0220A5E81C00112FB8 /* PSWebSocketInflater.m */,
+				4815EB0320A5E81C00112FB8 /* PSWebSocketDeflater.m */,
+				4815EB0420A5E81C00112FB8 /* PSWebSocketBuffer.h */,
+				4815EB0520A5E81C00112FB8 /* PSWebSocketNetworkThread.h */,
+				4815EB0620A5E81C00112FB8 /* PSWebSocketUTF8Decoder.m */,
+				4815EB0820A5E81C00112FB8 /* PSWebSocketInternal.h */,
+				4815EB0920A5E81C00112FB8 /* PSWebSocketServer.h */,
+				4815EB0A20A5E81C00112FB8 /* PSWebSocketDriver.m */,
+				4815EB0B20A5E81C00112FB8 /* PSWebSocketBuffer.m */,
+				4815EB0C20A5E81C00112FB8 /* PSWebSocketDeflater.h */,
+				4815EB0D20A5E81C00112FB8 /* PSWebSocketInflater.h */,
+				4815EB0E20A5E81C00112FB8 /* PSWebSocketUTF8Decoder.h */,
+				4815EB0F20A5E81C00112FB8 /* PSWebSocketNetworkThread.m */,
+				4815EB1020A5E81C00112FB8 /* PSWebSocketTypes.h */,
+				4815EB1120A5E81C00112FB8 /* PocketSocket-Prefix.pch */,
+				4815EB1220A5E81C00112FB8 /* PSWebSocket.m */,
+				4815EB1320A5E81C00112FB8 /* PSWebSocketDriver.h */,
+				4815EB1420A5E81C00112FB8 /* PSWebSocketServer.m */,
+			);
+			path = PocketSocket;
+			sourceTree = "<group>";
+		};
+		4815EB2820A5E84800112FB8 /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				482238BA20A6BC31000E8D17 /* libassertion_launchd.tbd */,
+				482238B820A6BC28000E8D17 /* libstdc++.tbd */,
+				482238B620A6BC11000E8D17 /* libc.tbd */,
+				482238B420A6BC00000E8D17 /* libc++.tbd */,
+				4815EB3120A5E86700112FB8 /* libz.tbd */,
+				4815EB2F20A5E86100112FB8 /* libSystem.tbd */,
+				4815EB2D20A5E85900112FB8 /* Security.framework */,
+				4815EB2B20A5E85100112FB8 /* Foundation.framework */,
+				4815EB2920A5E84800112FB8 /* CFNetwork.framework */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
+		482238C020A6C78C000E8D17 /* MPMessagePack */ = {
+			isa = PBXGroup;
+			children = (
+				482238DF20A6C81B000E8D17 /* GHODictionary */,
+				482238C120A6C78C000E8D17 /* NSArray+MPMessagePack.h */,
+				482238C220A6C78C000E8D17 /* MPMessagePackWriter.h */,
+				482238C320A6C78C000E8D17 /* MPMessagePackReader.m */,
+				482238C420A6C78C000E8D17 /* NSData+MPMessagePack.h */,
+				482238C520A6C78C000E8D17 /* cmp.h */,
+				482238C620A6C78C000E8D17 /* NSDictionary+MPMessagePack.h */,
+				482238C720A6C78C000E8D17 /* MPMessagePackWriter.m */,
+				482238C820A6C78C000E8D17 /* NSArray+MPMessagePack.m */,
+				482238C920A6C78C000E8D17 /* MPDefines.h */,
+				482238CA20A6C78C000E8D17 /* MPMessagePackReader.h */,
+				482238CB20A6C78C000E8D17 /* MPLog.h */,
+				482238CC20A6C78C000E8D17 /* MPMessagePack.h */,
+				482238CD20A6C78C000E8D17 /* cmp.c */,
+				482238CE20A6C78C000E8D17 /* NSData+MPMessagePack.m */,
+				482238CF20A6C78C000E8D17 /* NSDictionary+MPMessagePack.m */,
+			);
+			path = MPMessagePack;
+			sourceTree = "<group>";
+		};
+		482238DF20A6C81B000E8D17 /* GHODictionary */ = {
+			isa = PBXGroup;
+			children = (
+				482238E020A6C81B000E8D17 /* GHODict.m */,
+				482238E120A6C81B000E8D17 /* GHODict.h */,
+				482238E220A6C81B000E8D17 /* GHODictionary.h */,
+				482238E320A6C81B000E8D17 /* Info.plist */,
+			);
+			path = GHODictionary;
+			sourceTree = "<group>";
+		};
+		482238F920A7F976000E8D17 /* Colyseus */ = {
+			isa = PBXGroup;
+			children = (
+				4822390220A81886000E8D17 /* ColyseusObjCCommons.h */,
+				4822391120A96545000E8D17 /* ColyseusMessageEventArgs.h */,
+				4822391220A96545000E8D17 /* ColyseusMessageEventArgs.m */,
+				4822390D20A84551000E8D17 /* ColyseusCompare.h */,
+				4822390E20A84551000E8D17 /* ColyseusCompare.m */,
+				4822390420A84144000E8D17 /* ColyseusStateContainer.h */,
+				4822390520A84144000E8D17 /* ColyseusStateContainer.m */,
+				482238F520A7F972000E8D17 /* ColyseusClient.h */,
+				482238F620A7F972000E8D17 /* ColyseusClient.m */,
+				482238FA20A7FBCF000E8D17 /* ColyseusRoom.h */,
+				482238FB20A7FBCF000E8D17 /* ColyseusRoom.m */,
+				482238FE20A808FA000E8D17 /* ColyseusConnection.h */,
+				482238FF20A808FA000E8D17 /* ColyseusConnection.m */,
+			);
+			path = Colyseus;
+			sourceTree = "<group>";
+		};
+		4822390820A842C6000E8D17 /* AXMutableOrderedDictionary */ = {
+			isa = PBXGroup;
+			children = (
+				4822390920A842C6000E8D17 /* AXMutableOrderedDictionary.h */,
+				4822390A20A842C6000E8D17 /* AXMutableOrderedDictionary.m */,
+			);
+			path = AXMutableOrderedDictionary;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -59,7 +309,39 @@
 			isa = PBXHeadersBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				4815EB1A20A5E81D00112FB8 /* PSWebSocket.h in Headers */,
+				4815EB1F20A5E81D00112FB8 /* PSWebSocketDeflater.h in Headers */,
+				482238DB20A6C78C000E8D17 /* MPMessagePack.h in Headers */,
+				4815EB2420A5E81D00112FB8 /* PocketSocket-Prefix.pch in Headers */,
+				482238FC20A7FBCF000E8D17 /* ColyseusRoom.h in Headers */,
+				4822390F20A84551000E8D17 /* ColyseusCompare.h in Headers */,
+				4822391320A96545000E8D17 /* ColyseusMessageEventArgs.h in Headers */,
+				4822390620A84144000E8D17 /* ColyseusStateContainer.h in Headers */,
+				482238D820A6C78C000E8D17 /* MPDefines.h in Headers */,
+				4822390320A8188B000E8D17 /* ColyseusObjCCommons.h in Headers */,
+				4815EB1B20A5E81D00112FB8 /* PSWebSocketInternal.h in Headers */,
+				482238D920A6C78C000E8D17 /* MPMessagePackReader.h in Headers */,
+				4815EB2620A5E81D00112FB8 /* PSWebSocketDriver.h in Headers */,
 				4815E50920A5E28500112FB8 /* Colyseus_ObjC.h in Headers */,
+				482238D320A6C78C000E8D17 /* NSData+MPMessagePack.h in Headers */,
+				482238D120A6C78C000E8D17 /* MPMessagePackWriter.h in Headers */,
+				4815EB1C20A5E81D00112FB8 /* PSWebSocketServer.h in Headers */,
+				4822390020A808FA000E8D17 /* ColyseusConnection.h in Headers */,
+				4815E81220A5E29800112FB8 /* Header.h in Headers */,
+				482238E620A6C81C000E8D17 /* GHODictionary.h in Headers */,
+				4815EB2320A5E81D00112FB8 /* PSWebSocketTypes.h in Headers */,
+				482238D520A6C78C000E8D17 /* NSDictionary+MPMessagePack.h in Headers */,
+				4815EB2120A5E81D00112FB8 /* PSWebSocketUTF8Decoder.h in Headers */,
+				4815EB1820A5E81D00112FB8 /* PSWebSocketNetworkThread.h in Headers */,
+				482238B320A69415000E8D17 /* fossilize.h in Headers */,
+				482238D020A6C78C000E8D17 /* NSArray+MPMessagePack.h in Headers */,
+				4815EB1720A5E81D00112FB8 /* PSWebSocketBuffer.h in Headers */,
+				4815EB2020A5E81D00112FB8 /* PSWebSocketInflater.h in Headers */,
+				4822390B20A842C6000E8D17 /* AXMutableOrderedDictionary.h in Headers */,
+				482238E520A6C81C000E8D17 /* GHODict.h in Headers */,
+				482238DA20A6C78C000E8D17 /* MPLog.h in Headers */,
+				482238F720A7F972000E8D17 /* ColyseusClient.h in Headers */,
+				482238D420A6C78C000E8D17 /* cmp.h in Headers */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -121,6 +403,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				482238E720A6C81C000E8D17 /* Info.plist in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -131,6 +414,29 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				482238DE20A6C78C000E8D17 /* NSDictionary+MPMessagePack.m in Sources */,
+				4815EAB620A5E29900112FB8 /* fossilize.c in Sources */,
+				4815EB2220A5E81D00112FB8 /* PSWebSocketNetworkThread.m in Sources */,
+				482238D220A6C78C000E8D17 /* MPMessagePackReader.m in Sources */,
+				4822391020A84551000E8D17 /* ColyseusCompare.m in Sources */,
+				482238E420A6C81C000E8D17 /* GHODict.m in Sources */,
+				482238DD20A6C78C000E8D17 /* NSData+MPMessagePack.m in Sources */,
+				4815EB2720A5E81D00112FB8 /* PSWebSocketServer.m in Sources */,
+				4815EB1920A5E81D00112FB8 /* PSWebSocketUTF8Decoder.m in Sources */,
+				4822390C20A842C6000E8D17 /* AXMutableOrderedDictionary.m in Sources */,
+				482238DC20A6C78C000E8D17 /* cmp.c in Sources */,
+				482238D620A6C78C000E8D17 /* MPMessagePackWriter.m in Sources */,
+				4822390720A84144000E8D17 /* ColyseusStateContainer.m in Sources */,
+				4815EB1D20A5E81D00112FB8 /* PSWebSocketDriver.m in Sources */,
+				482238FD20A7FBCF000E8D17 /* ColyseusRoom.m in Sources */,
+				4822391420A96545000E8D17 /* ColyseusMessageEventArgs.m in Sources */,
+				4815EB1620A5E81D00112FB8 /* PSWebSocketDeflater.m in Sources */,
+				482238D720A6C78C000E8D17 /* NSArray+MPMessagePack.m in Sources */,
+				4822390120A808FA000E8D17 /* ColyseusConnection.m in Sources */,
+				4815EB1E20A5E81D00112FB8 /* PSWebSocketBuffer.m in Sources */,
+				4815EB2520A5E81D00112FB8 /* PSWebSocket.m in Sources */,
+				4815EB1520A5E81D00112FB8 /* PSWebSocketInflater.m in Sources */,
+				482238F820A7F972000E8D17 /* ColyseusClient.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -257,6 +563,7 @@
 				DYLIB_COMPATIBILITY_VERSION = 1;
 				DYLIB_CURRENT_VERSION = 1;
 				DYLIB_INSTALL_NAME_BASE = "@rpath";
+				HEADER_SEARCH_PATHS = "$(SRCROOT)/Colyseus-ObjC/msgpack/include";
 				INFOPLIST_FILE = "Colyseus-ObjC/Info.plist";
 				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
@@ -264,6 +571,7 @@
 				PRODUCT_NAME = "$(TARGET_NAME:c99extidentifier)";
 				SKIP_INSTALL = YES;
 				TARGETED_DEVICE_FAMILY = "1,2";
+				VALID_ARCHS = "arm64 armv7 armv7s x86_64";
 			};
 			name = Debug;
 		};
@@ -277,6 +585,7 @@
 				DYLIB_COMPATIBILITY_VERSION = 1;
 				DYLIB_CURRENT_VERSION = 1;
 				DYLIB_INSTALL_NAME_BASE = "@rpath";
+				HEADER_SEARCH_PATHS = "$(SRCROOT)/Colyseus-ObjC/msgpack/include";
 				INFOPLIST_FILE = "Colyseus-ObjC/Info.plist";
 				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
@@ -284,6 +593,7 @@
 				PRODUCT_NAME = "$(TARGET_NAME:c99extidentifier)";
 				SKIP_INSTALL = YES;
 				TARGETED_DEVICE_FAMILY = "1,2";
+				VALID_ARCHS = "arm64 armv7 armv7s x86_64";
 			};
 			name = Release;
 		};

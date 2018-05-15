@@ -26,7 +26,7 @@
 
 @interface ColyseusRoom ()
 @property (retain, nonatomic) ColyseusConnection *connection;
-@property (assign) NSData *previousState;
+@property (retain) NSData *previousState;
 @end
 
 @implementation ColyseusRoom
@@ -35,6 +35,13 @@
     if(self = [super initWithState:[IndexedDictionary new]]) {
         _name = name;
         _options = options;
+        
+        _onReadytoConnect = [NSMutableArray new];
+        _onJoin = [NSMutableArray new];
+        _onError = [NSMutableArray new];
+        _onLeave = [NSMutableArray new];
+        _onMessage = [NSMutableArray new];
+        _onStateChange = [NSMutableArray new];
     }
     return self;
 }
@@ -42,6 +49,7 @@
 -(void)recv:(NSData *)data {
     if (data != nil)
     {
+        NSLog(@"Data is type %@", [data class]);
         [self parseMessage:data];
     }
 }
@@ -51,20 +59,28 @@
 }
 
 -(void)setConnection:(ColyseusConnection *)connection {
-    self.connection = connection;
+    _connection = connection;
     
     ColyseusRoom *weakself = self;
-    [self.connection.onClose addObject:^(NSArray *args) {
+    
+    [connection.onMessage addObject:^(NSArray *args) {
+//        NSLog(@"onMessage");
+        if([args count] < 2) return;
+        ColyseusMessageEventArgs *eventArgs = args[1];
+        [weakself recv:eventArgs.message];
+    }];
+    
+    [connection.onClose addObject:^(NSArray *args) {
         if([args count] < 2) return;
         //        NSObject *sender = args[0];
         for(ColyseusEventHandler h in weakself.onLeave) {
-            h(args);
+            h(@[self, args[1]]);
         }
     }];
     
-    [self.connection.onError addObject:^(NSArray *args) {
+    [connection.onError addObject:^(NSArray *args) {
         for(ColyseusEventHandler h in weakself.onError) {
-            h(args);
+            h(@[self, args[1]]);
         }
     }];
     
@@ -79,21 +95,23 @@
     NSDictionary *state = [encodedState mp_dict:&error];
     if(error || !state) {
         NSLog(@"ERROR Decoding state : %@", [error description]);
-        return;
     }
-//    var state = MsgPack.Deserialize<IndexedDictionary<string, object>> (new MemoryStream(encodedState));
-    IndexedDictionary *idxdict = [IndexedDictionary dictionaryWithDictionary:state];
-    [self setState:idxdict];
-//    this.Set(state);
-    
-    if (self.onStateChange != nil) {
-        ColyseusRoomUpdateEventArgs *args = [[ColyseusRoomUpdateEventArgs alloc] initWithState:[IndexedDictionary dictionaryWithDictionary:state] isFirstState:YES];
-        for(ColyseusEventHandler h in self.onStateChange) {
-            h(@[self, args]);
+    else {
+        //    var state = MsgPack.Deserialize<IndexedDictionary<string, object>> (new MemoryStream(encodedState));
+        IndexedDictionary *idxdict = [IndexedDictionary dictionaryWithDictionary:state];
+        [self setState:idxdict];
+        //    this.Set(state);
+        
+        if ([self.onStateChange count]) {
+            ColyseusRoomUpdateEventArgs *args = [[ColyseusRoomUpdateEventArgs alloc] initWithState:[IndexedDictionary dictionaryWithDictionary:state] isFirstState:YES];
+            for(ColyseusEventHandler h in self.onStateChange) {
+                h(@[self, args]);
+            }
+            //        self.OnStateChange(self, new RoomUpdateEventArgs (state, true));
         }
-//        self.OnStateChange(self, new RoomUpdateEventArgs (state, true));
     }
     
+    NSLog(@"set previous state %@", encodedState);
     self.previousState = encodedState;
 }
 
@@ -110,6 +128,12 @@
 
 -(void)send:(NSObject *)data {
     [self.connection send:@[@(ColyseusProtocol_ROOM_DATA), self.ID, data]];
+    if(!self.connection) {
+        NSLog(@"I have no connection :(");
+    }
+    else {
+        NSLog(@"I sent data %@", data);
+    }
 //    this.connection.Send(new object[]{Protocol.ROOM_DATA, this.id, data});
 }
 
@@ -126,18 +150,22 @@
         NSLog(@"First index (code) is not NSNumber; error"); return;
     }
     int code = [codeNumber intValue];
+    NSLog(@"Message with code of %d", code);
     switch (code) {
         case ColyseusProtocol_JOIN_ROOM: {
-            self.sessionID = [message safeObjectAtIndex:1];
+            self.sessionID = [self stringifyData:[message safeObjectAtIndex:1]];
             for(ColyseusEventHandler h in self.onJoin) {
-                h(@[self, [ColyseusEventArgs new]]);
+                h(@[self, [ColyseusMessageEventArgs messageEventWithMessage:self.sessionID]]);
             }
         } break;
         case ColyseusProtocol_JOIN_ERROR: {
             for(ColyseusEventHandler h in self.onError) {
                 h(@[
                     self,
-                    [ColyseusErrorEventArgs errorEventWithMessage:[message safeObjectAtIndex:1]]
+                    [ColyseusErrorEventArgs errorEventWithMessage:
+                     [NSString stringWithFormat:@"Join Error : %@",
+                     [self stringifyData:[message safeObjectAtIndex:1]]]
+                     ]
                     ]
                   );
             }
@@ -147,27 +175,39 @@
         }break;
         case ColyseusProtocol_ROOM_STATE: {
             //This is a message that has been sent from messagepack; therefore it must be already encoded.. probably a form of string
-            NSData *encodedState = [message safeObjectAtIndex:1];
+            NSData *encodedState = [message safeObjectAtIndex:2]; //Original code was index 1, but somehow I received index of 2
+            NSLog(@"ROOM_STATE message is %@", message);
+            NSLog(@"try stringify [1] : %@", [self stringifyData:message[1]]); //As seen here, index 1 is simply the roomId or connectionId, something of that sort
             if([encodedState isKindOfClass:[NSData class]]) {
                 NSLog(@"ROOM_STATE is NSData!");
             }
             else if([encodedState isKindOfClass:[NSString class]]) {
                 NSLog(@"ROOM_STATE is NSString!");
+                NSLog(@"it is %@", encodedState);
+                encodedState = [(NSString *)encodedState dataUsingEncoding:NSUTF8StringEncoding];
             }
             // TODO:
             // https://github.com/deniszykov/msgpack-unity3d/issues/8
             
-            // var remoteCurrentTime = (double) message [2];
-            // var remoteElapsedTime = (int) message [3];
+            unsigned int remoteCurrentTime = [self unsignintifyData:message[2]];// (double) message [2];
+            unsigned int remoteElapsedTime = [self unsignintifyData:message[3]];//[message [3] intValue];
             
+            NSLog(@"About to assign room state with time : %d, %d", remoteCurrentTime, remoteElapsedTime);
             // this.SetState (state, remoteCurrentTime, remoteElapsedTime);
-            [self setState:encodedState remoteCurrentTime:0 remoteElapsedTime:0];
+            [self setState:encodedState remoteCurrentTime:remoteCurrentTime remoteElapsedTime:remoteElapsedTime];
         }break;
         case ColyseusProtocol_ROOM_STATE_PATCH: {
             //This is a message that has been sent from messagepack; therefore it must be already encoded.. probably a form of string
             //var data = (List<object>) message [1];
-            NSData *data = [message safeObjectAtIndex:1];
+            NSLog(@"ROOM_STATE_PATCH message is %@", message);
+            id msg = [message safeObjectAtIndex:2]; //Original code was index 1, but somehow I received index of 2
+            NSData *data = [self dataify:msg];
             NSLog(@"ROOM_STATE_PATCH Data is of class %@", [[data class] description]);
+            if([data isKindOfClass:[NSString class]]) {
+                NSLog(@"ROOM_STATE is NSString!");
+                NSLog(@"it is %@", data);
+                data = [(NSString *)data dataUsingEncoding:NSUTF8StringEncoding];
+            }
             //TODO: Figure out what to do with this... Or if I'm even right
 //            byte[] patches = new byte[data.Count];
 //            uint i = 0;
@@ -182,7 +222,8 @@
         case ColyseusProtocol_ROOM_DATA: {
             if ([self.onMessage count]) {
                 for(ColyseusEventHandler h in self.onMessage) {
-                    h(@[self, [ColyseusMessageEventArgs messageEventWithMessage:message[1]]]);
+                    NSString *msg = [self stringifyData:message[1]];
+                    h(@[self, [ColyseusMessageEventArgs messageEventWithMessage:msg]]);
                 }
             }
         }break;
@@ -194,8 +235,15 @@
 
 
 -(void)patch:(NSData *)delta {
+    NSInteger alloclen = _previousState.length + delta.length;
+    NSLog(@"allocating %d", alloclen);
     char *buffer = (char *)malloc(_previousState.length + delta.length);
     int newStateSize = delta_apply([_previousState bytes], (int)_previousState.length, [delta bytes], (int)delta.length, buffer);
+    if(newStateSize == -1) {
+        NSLog(@"ERROR; Invalid state size... %d", newStateSize);
+        free(buffer);
+        return;
+    }
 //    _previousState = Fossil.Delta.Apply (this._previousState, delta);
     NSData *newStateData = [NSData dataWithBytes:buffer length:newStateSize];
     free(buffer);
@@ -211,6 +259,58 @@
 //    if (this.OnStateChange)
 //        this.OnStateChange.Invoke(this, new RoomUpdateEventArgs(this.state));
 
+}
+
+-(NSString *)stringifyData:(id)data {
+    if([data isKindOfClass:[NSData class]]) {
+        return [[NSString alloc] initWithData:data encoding:NSUTF8StringEncoding];
+    }
+    else if([data isKindOfClass:[NSString class]]) {
+        return data;
+    }
+    return nil;
+}
+
+-(unsigned int)unsignintifyData:(id)data {
+    if([data isKindOfClass:[NSData class]]) {
+        NSData *d = data;
+        return [[[NSString alloc] initWithData:d encoding:NSUTF8StringEncoding] intValue];
+    }
+    else if([data isKindOfClass:[NSNumber class]]) {
+        return [data unsignedIntValue];
+    }
+    else if([data isKindOfClass:[NSString class]]) {
+        return [data intValue];
+    }
+    return nil;
+}
+
+/*
+ Now that this message in the second index is an array, this patch of code makes more sense
+ //        patches = new byte[data.Count];
+ //                    uint i = 0;
+ //                    foreach (var b in data) {
+ //                        patches [i] = Convert.ToByte(b);
+ //                        i++;
+ //                    }
+ //
+ //                    this.Patch (patches);
+
+ */
+-(NSData *)dataify:(id)message {
+    if([message isKindOfClass:[NSData class]]) {
+        return message;
+    }
+    else if([message isKindOfClass:[NSArray class]]) {
+        NSArray *m = message;
+        NSMutableData *d = [NSMutableData new];
+        for(NSNumber *n in m) {
+            char c = [n charValue];
+            [d appendBytes:&c length:1];
+        }
+        return d;
+    }
+    return [NSData data];
 }
 @end
 

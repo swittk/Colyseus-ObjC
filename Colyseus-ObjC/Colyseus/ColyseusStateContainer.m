@@ -25,7 +25,7 @@
               [NSRegularExpression regularExpressionWithPattern:@"^([a-zA-Z0-9\\-_]+)$" options:0 error:nil],
           @":number" :
               [NSRegularExpression regularExpressionWithPattern:@"^([0-9]+)$" options:0 error:nil],
-          @":string" : [NSRegularExpression regularExpressionWithPattern:@"^(\w+)$"options:0 error:nil],
+          @":string" : [NSRegularExpression regularExpressionWithPattern:@"^(\\w+)$"options:0 error:nil],
           @":axis" : [NSRegularExpression regularExpressionWithPattern:@"^([xyz])$"options:0 error:nil],
           @":*" : [NSRegularExpression regularExpressionWithPattern:@"(.*)"options:0 error:nil]
           } mutableCopy];

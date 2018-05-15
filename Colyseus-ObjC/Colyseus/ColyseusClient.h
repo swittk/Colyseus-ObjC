@@ -22,4 +22,7 @@
 @property (retain) NSMutableArray <ColyseusEventHandler>*onMessage; //MessageEventArgs
 -(id)initWithEndpoint:(NSString *)endPoint ID:(NSString *)ID;
 -(void)recv:(id)data;
+-(void)connect;
+-(void)close;
+-(ColyseusRoom *)join:(NSString *)roomName options:(nullable NSMutableDictionary <NSString *, id>*)options;
 @end

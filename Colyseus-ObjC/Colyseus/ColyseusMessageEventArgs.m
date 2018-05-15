@@ -16,7 +16,7 @@
 @end
 
 @implementation ColyseusMessageEventArgs
-+(ColyseusMessageEventArgs *)messageEventWithMessage:(NSString *)message {
++(ColyseusMessageEventArgs *)messageEventWithMessage:(NSObject *)message {
     ColyseusMessageEventArgs *e = [ColyseusMessageEventArgs new];
     e.message = message;
     return e;

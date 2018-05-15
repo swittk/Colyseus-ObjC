@@ -56,15 +56,16 @@
         
         self.ID = ID;
         self.endpoint = [NSURLComponents componentsWithString:endPoint];
+        NSLog(@"My endpoint is %@", self.endpoint);
         self.connection = [self createConnectionWithPath:nil options:nil];
         
         __block ColyseusClient *weakself = self;
         [self.connection.onMessage addObject:^(NSArray *args) {
             if([args count] < 2) return;
 //            ColyseusConnection *connection = args[0];
-            id message = args[1];
+            ColyseusMessageEventArgs *messageEventArgs = args[1];
             
-            [weakself recv:message];
+            [weakself recv:messageEventArgs.message];
         }];
 //        self.connection.onClose += (object sender, EventArgs e) => this.OnClose.Invoke(sender, e);
     }
@@ -83,7 +84,7 @@
         [self parseMessage:data];
         
         // TODO: this may not be a good idea?
-        for(ColyseusRoom *room in self.rooms) {
+        for(ColyseusRoom *room in self.rooms.allValues) {
             [room recv:data];
         }
     }
@@ -121,8 +122,18 @@
     }
     
     NSURLComponents *comps = [self.endpoint copy];
-    comps.path = path;
+    NSString *fixedPath;
+    if([path length]) {
+        if([path characterAtIndex:0] == '/') fixedPath = path;
+        else fixedPath = [NSString stringWithFormat:@"/%@", path];
+    }
+    else {
+        fixedPath = @"/";
+    }
+    comps.path = fixedPath;
     comps.query = [list componentsJoinedByString:@"&"];
+//    NSLog(@"connectionComps is %@", comps);
+    NSLog(@"Created connectionComps yields URL of %@", [comps URL]);
     
     return [[ColyseusConnection alloc] initWithURL:[comps URL]];
 }
@@ -135,10 +146,10 @@
         NSLog(@"Array creation error : %@", arrayError);
     }
     int code = [[message safeObjectAtIndex:0] intValue];
-    
+    NSLog(@"client received message of code %d, msg %@", code, message);
     switch (code) {
         case ColyseusProtocol_USER_ID: {
-            self.ID = [message safeObjectAtIndex:1];
+            self.ID = [self stringifyData:[message safeObjectAtIndex:1]];
             for(ColyseusEventHandler h in self.onOpen) {
                 h(@[self, [ColyseusEventArgs event]]);
             }
@@ -149,7 +160,7 @@
             ColyseusRoom *room;
             room = self.connectingRooms[@(requestId)];
             if(room) {
-                room.ID = message[1];
+                room.ID = [self stringifyData:message[1]];
                 self.endpoint.path = [NSString stringWithFormat:@"/%@", room.ID];
                 self.endpoint.query = [NSString stringWithFormat:@"colyseusid=%@",self.ID];
                 
@@ -157,7 +168,8 @@
                 __block ColyseusClient *weakself = self;
                 [room.onLeave addObject:^(NSArray *args) {
                     if([args count] < 2) {NSLog(@"args < 2"); return;}
-                    [weakself onLeaveRoom:args[0] arguments:args[1]];
+                    ColyseusErrorEventArgs *err = args[1];
+                    [weakself onLeaveRoom:args[0] error:err.message];
                 }];
 //                room.OnLeave += OnLeaveRoom;
                 
@@ -178,15 +190,26 @@
         }break;
         default: {
             for(ColyseusEventHandler h in self.onMessage) {
-                h(@[self, [ColyseusMessageEventArgs messageEventWithMessage:message]]);
+                h(@[self, [ColyseusMessageEventArgs messageEventWithMessage:message[1]]]);
             }
         }break;
     }
 }
 
--(void)onLeaveRoom:(ColyseusRoom *)sender arguments:(NSArray *)arguments
+-(void)onLeaveRoom:(ColyseusRoom *)sender error:(NSString *)error
 {
+    NSLog(@"onLeaveRoom, reason %@", error);
     [self.rooms removeObjectForKey:sender.ID];
+}
+
+-(NSString *)stringifyData:(id)data {
+    if([data isKindOfClass:[NSData class]]) {
+        return [[NSString alloc] initWithData:data encoding:NSUTF8StringEncoding];
+    }
+    else if([data isKindOfClass:[NSString class]]) {
+        return data;
+    }
+    return nil;
 }
 
 

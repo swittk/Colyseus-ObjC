@@ -16,9 +16,16 @@
     PSWebSocket *socket;
 }
 @property (readonly) NSURL *url;
+///@[ColyseusConnection, ColyseusEventArgs]
 @property (retain) NSMutableArray <ColyseusEventHandler>*onOpen;
+
+///@[ColyseusConnection, ColyseusErrorEventArgs]
 @property (retain) NSMutableArray <ColyseusEventHandler>*onClose;
+
+///@[ColyseusConnection, ColyseusMessageEventArgs]
 @property (retain) NSMutableArray <ColyseusEventHandler>*onMessage;
+
+///@[ColyseusConnection, ColyseusErrorEventArgs]
 @property (retain) NSMutableArray <ColyseusEventHandler>*onError;
 
 @property (readonly) BOOL isOpen;

@@ -19,8 +19,8 @@
 @end
 
 @interface ColyseusMessageEventArgs : ColyseusEventArgs
-@property (retain) NSString *message;
-+(ColyseusMessageEventArgs *)messageEventWithMessage:(NSString *)message;
+@property (retain) NSObject *message;
++(ColyseusMessageEventArgs *)messageEventWithMessage:(NSObject *)message;
 @end
 
 @interface ColyseusRoomUpdateEventArgs : ColyseusEventArgs

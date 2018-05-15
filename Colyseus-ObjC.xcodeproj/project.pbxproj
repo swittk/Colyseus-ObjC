@@ -57,20 +57,20 @@
 		482238E520A6C81C000E8D17 /* GHODict.h in Headers */ = {isa = PBXBuildFile; fileRef = 482238E120A6C81B000E8D17 /* GHODict.h */; };
 		482238E620A6C81C000E8D17 /* GHODictionary.h in Headers */ = {isa = PBXBuildFile; fileRef = 482238E220A6C81B000E8D17 /* GHODictionary.h */; };
 		482238E720A6C81C000E8D17 /* Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 482238E320A6C81B000E8D17 /* Info.plist */; };
-		482238F720A7F972000E8D17 /* ColyseusClient.h in Headers */ = {isa = PBXBuildFile; fileRef = 482238F520A7F972000E8D17 /* ColyseusClient.h */; };
+		482238F720A7F972000E8D17 /* ColyseusClient.h in Headers */ = {isa = PBXBuildFile; fileRef = 482238F520A7F972000E8D17 /* ColyseusClient.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		482238F820A7F972000E8D17 /* ColyseusClient.m in Sources */ = {isa = PBXBuildFile; fileRef = 482238F620A7F972000E8D17 /* ColyseusClient.m */; };
-		482238FC20A7FBCF000E8D17 /* ColyseusRoom.h in Headers */ = {isa = PBXBuildFile; fileRef = 482238FA20A7FBCF000E8D17 /* ColyseusRoom.h */; };
+		482238FC20A7FBCF000E8D17 /* ColyseusRoom.h in Headers */ = {isa = PBXBuildFile; fileRef = 482238FA20A7FBCF000E8D17 /* ColyseusRoom.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		482238FD20A7FBCF000E8D17 /* ColyseusRoom.m in Sources */ = {isa = PBXBuildFile; fileRef = 482238FB20A7FBCF000E8D17 /* ColyseusRoom.m */; };
-		4822390020A808FA000E8D17 /* ColyseusConnection.h in Headers */ = {isa = PBXBuildFile; fileRef = 482238FE20A808FA000E8D17 /* ColyseusConnection.h */; };
+		4822390020A808FA000E8D17 /* ColyseusConnection.h in Headers */ = {isa = PBXBuildFile; fileRef = 482238FE20A808FA000E8D17 /* ColyseusConnection.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		4822390120A808FA000E8D17 /* ColyseusConnection.m in Sources */ = {isa = PBXBuildFile; fileRef = 482238FF20A808FA000E8D17 /* ColyseusConnection.m */; };
-		4822390320A8188B000E8D17 /* ColyseusObjCCommons.h in Headers */ = {isa = PBXBuildFile; fileRef = 4822390220A81886000E8D17 /* ColyseusObjCCommons.h */; };
-		4822390620A84144000E8D17 /* ColyseusStateContainer.h in Headers */ = {isa = PBXBuildFile; fileRef = 4822390420A84144000E8D17 /* ColyseusStateContainer.h */; };
+		4822390320A8188B000E8D17 /* ColyseusObjCCommons.h in Headers */ = {isa = PBXBuildFile; fileRef = 4822390220A81886000E8D17 /* ColyseusObjCCommons.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		4822390620A84144000E8D17 /* ColyseusStateContainer.h in Headers */ = {isa = PBXBuildFile; fileRef = 4822390420A84144000E8D17 /* ColyseusStateContainer.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		4822390720A84144000E8D17 /* ColyseusStateContainer.m in Sources */ = {isa = PBXBuildFile; fileRef = 4822390520A84144000E8D17 /* ColyseusStateContainer.m */; };
 		4822390B20A842C6000E8D17 /* AXMutableOrderedDictionary.h in Headers */ = {isa = PBXBuildFile; fileRef = 4822390920A842C6000E8D17 /* AXMutableOrderedDictionary.h */; };
 		4822390C20A842C6000E8D17 /* AXMutableOrderedDictionary.m in Sources */ = {isa = PBXBuildFile; fileRef = 4822390A20A842C6000E8D17 /* AXMutableOrderedDictionary.m */; };
-		4822390F20A84551000E8D17 /* ColyseusCompare.h in Headers */ = {isa = PBXBuildFile; fileRef = 4822390D20A84551000E8D17 /* ColyseusCompare.h */; };
+		4822390F20A84551000E8D17 /* ColyseusCompare.h in Headers */ = {isa = PBXBuildFile; fileRef = 4822390D20A84551000E8D17 /* ColyseusCompare.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		4822391020A84551000E8D17 /* ColyseusCompare.m in Sources */ = {isa = PBXBuildFile; fileRef = 4822390E20A84551000E8D17 /* ColyseusCompare.m */; };
-		4822391320A96545000E8D17 /* ColyseusMessageEventArgs.h in Headers */ = {isa = PBXBuildFile; fileRef = 4822391120A96545000E8D17 /* ColyseusMessageEventArgs.h */; };
+		4822391320A96545000E8D17 /* ColyseusMessageEventArgs.h in Headers */ = {isa = PBXBuildFile; fileRef = 4822391120A96545000E8D17 /* ColyseusMessageEventArgs.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		4822391420A96545000E8D17 /* ColyseusMessageEventArgs.m in Sources */ = {isa = PBXBuildFile; fileRef = 4822391220A96545000E8D17 /* ColyseusMessageEventArgs.m */; };
 /* End PBXBuildFile section */
 
@@ -311,14 +311,16 @@
 			files = (
 				4815EB1A20A5E81D00112FB8 /* PSWebSocket.h in Headers */,
 				4815EB1F20A5E81D00112FB8 /* PSWebSocketDeflater.h in Headers */,
+				4822390F20A84551000E8D17 /* ColyseusCompare.h in Headers */,
+				482238FC20A7FBCF000E8D17 /* ColyseusRoom.h in Headers */,
+				4822390020A808FA000E8D17 /* ColyseusConnection.h in Headers */,
+				4822390620A84144000E8D17 /* ColyseusStateContainer.h in Headers */,
+				4822390320A8188B000E8D17 /* ColyseusObjCCommons.h in Headers */,
+				482238F720A7F972000E8D17 /* ColyseusClient.h in Headers */,
+				4822391320A96545000E8D17 /* ColyseusMessageEventArgs.h in Headers */,
 				482238DB20A6C78C000E8D17 /* MPMessagePack.h in Headers */,
 				4815EB2420A5E81D00112FB8 /* PocketSocket-Prefix.pch in Headers */,
-				482238FC20A7FBCF000E8D17 /* ColyseusRoom.h in Headers */,
-				4822390F20A84551000E8D17 /* ColyseusCompare.h in Headers */,
-				4822391320A96545000E8D17 /* ColyseusMessageEventArgs.h in Headers */,
-				4822390620A84144000E8D17 /* ColyseusStateContainer.h in Headers */,
 				482238D820A6C78C000E8D17 /* MPDefines.h in Headers */,
-				4822390320A8188B000E8D17 /* ColyseusObjCCommons.h in Headers */,
 				4815EB1B20A5E81D00112FB8 /* PSWebSocketInternal.h in Headers */,
 				482238D920A6C78C000E8D17 /* MPMessagePackReader.h in Headers */,
 				4815EB2620A5E81D00112FB8 /* PSWebSocketDriver.h in Headers */,
@@ -326,7 +328,6 @@
 				482238D320A6C78C000E8D17 /* NSData+MPMessagePack.h in Headers */,
 				482238D120A6C78C000E8D17 /* MPMessagePackWriter.h in Headers */,
 				4815EB1C20A5E81D00112FB8 /* PSWebSocketServer.h in Headers */,
-				4822390020A808FA000E8D17 /* ColyseusConnection.h in Headers */,
 				4815E81220A5E29800112FB8 /* Header.h in Headers */,
 				482238E620A6C81C000E8D17 /* GHODictionary.h in Headers */,
 				4815EB2320A5E81D00112FB8 /* PSWebSocketTypes.h in Headers */,
@@ -340,7 +341,6 @@
 				4822390B20A842C6000E8D17 /* AXMutableOrderedDictionary.h in Headers */,
 				482238E520A6C81C000E8D17 /* GHODict.h in Headers */,
 				482238DA20A6C78C000E8D17 /* MPLog.h in Headers */,
-				482238F720A7F972000E8D17 /* ColyseusClient.h in Headers */,
 				482238D420A6C78C000E8D17 /* cmp.h in Headers */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -571,6 +571,7 @@
 				PRODUCT_NAME = "$(TARGET_NAME:c99extidentifier)";
 				SKIP_INSTALL = YES;
 				TARGETED_DEVICE_FAMILY = "1,2";
+				USER_HEADER_SEARCH_PATHS = "$(SRCROOT)/Colyseus-ObjC/PocketSocket";
 				VALID_ARCHS = "arm64 armv7 armv7s x86_64";
 			};
 			name = Debug;
@@ -593,6 +594,7 @@
 				PRODUCT_NAME = "$(TARGET_NAME:c99extidentifier)";
 				SKIP_INSTALL = YES;
 				TARGETED_DEVICE_FAMILY = "1,2";
+				USER_HEADER_SEARCH_PATHS = "$(SRCROOT)/Colyseus-ObjC/PocketSocket";
 				VALID_ARCHS = "arm64 armv7 armv7s x86_64";
 			};
 			name = Release;

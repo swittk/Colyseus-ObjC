@@ -5,6 +5,7 @@
 //  Created by Gabriel on 7/3/14.
 //  Copyright (c) 2014 Gabriel Handford. All rights reserved.
 //
+//#define MSGPACK_DISABLE_STRINGS 1
 
 #import "MPMessagePackReader.h"
 
@@ -90,7 +91,12 @@
       if (!readSuccess) {
         return [self returnNilWithErrorCode:206 description:@"Unable to read string" error:error];
       }
-      NSString *str = [[NSString alloc] initWithData:data encoding:NSUTF8StringEncoding];
+        
+#ifdef MSGPACK_DISABLE_STRINGS
+        NSString *str = nil;//[[NSString alloc] initWithData:data encoding:NSUTF8StringEncoding];
+#else
+        NSString *str = [[NSString alloc] initWithData:data encoding:NSUTF8StringEncoding];
+#endif
       if (!str) {
         // Invalid string encoding
         // Other languages have a raw byte string but not Objective-C

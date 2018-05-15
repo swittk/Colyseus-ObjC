@@ -9,6 +9,7 @@
 #import <Foundation/Foundation.h>
 #import "ColyseusObjCCommons.h"
 #import "ColyseusStateContainer.h"
+#import "ColyseusMessageEventArgs.h"
 
 @class ColyseusConnection;
 
@@ -22,32 +23,32 @@
 /// <summary>
 /// Occurs when <see cref="Room"/> is able to connect to the server.
 /// </summary>
-@property (retain) NSMutableArray <ColyseusEventHandler>* onReadytoConnect;
+@property (retain) NSMutableArray <void (^)(ColyseusRoom *, ColyseusEventArgs *)>* onReadytoConnect;
 
 /// <summary>
 /// Occurs when the <see cref="Client"/> successfully connects to the <see cref="Room"/>.
 /// </summary>
-@property (retain) NSMutableArray <ColyseusEventHandler>* onJoin;
+@property (retain) NSMutableArray <void (^)(ColyseusRoom *, ColyseusMessageEventArgs *)>* onJoin;
 
 /// <summary>
 /// Occurs when some error has been triggered in the room.
 /// </summary>
-@property (retain) NSMutableArray <ColyseusEventHandler>* onError;
+@property (retain) NSMutableArray <void (^)(ColyseusRoom *, ColyseusErrorEventArgs *)>* onError;
 
 /// <summary>
 /// Occurs when <see cref="Client"/> leaves this room.
 /// </summary>
-@property (retain) NSMutableArray <ColyseusEventHandler>* onLeave;
+@property (retain) NSMutableArray <void (^)(ColyseusRoom *, ColyseusEventArgs *)>* onLeave;
 
 /// <summary>
 /// Occurs when server sends a message to this <see cref="Room"/>
 /// </summary>
-@property (retain) NSMutableArray <ColyseusEventHandler>* onMessage;
+@property (retain) NSMutableArray <void (^)(ColyseusRoom *, ColyseusMessageEventArgs *)>* onMessage;
 
 /// <summary>
 /// Occurs after applying the patched state on this <see cref="Room"/>.
 /// </summary>
-@property (retain) NSMutableArray <ColyseusEventHandler>* onStateChange;
+@property (retain) NSMutableArray <void (^)(ColyseusRoom *, ColyseusRoomUpdateEventArgs *)>* onStateChange;
 
 /// <summary>
 /// Initializes a new instance of the <see cref="Room"/> class.

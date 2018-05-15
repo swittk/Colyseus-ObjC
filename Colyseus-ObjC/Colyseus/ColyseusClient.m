@@ -60,12 +60,14 @@
         self.connection = [self createConnectionWithPath:nil options:nil];
         
         __block ColyseusClient *weakself = self;
-        [self.connection.onMessage addObject:^(NSArray *args) {
-            if([args count] < 2) return;
-//            ColyseusConnection *connection = args[0];
-            ColyseusMessageEventArgs *messageEventArgs = args[1];
-            
-            [weakself recv:messageEventArgs.message];
+        [self.connection.onMessage addObject:^void(ColyseusConnection *c, ColyseusMessageEventArgs *e) {
+            [weakself recv:e.message];
+        }];
+        
+        [self.connection.onClose addObject:^void(ColyseusConnection *c, ColyseusErrorEventArgs *e) {
+            for(void (^h)(ColyseusClient *, ColyseusErrorEventArgs *) in weakself.onClose) {
+                h(weakself, e);
+            }
         }];
 //        self.connection.onClose += (object sender, EventArgs e) => this.OnClose.Invoke(sender, e);
     }
@@ -146,12 +148,12 @@
         NSLog(@"Array creation error : %@", arrayError);
     }
     int code = [[message safeObjectAtIndex:0] intValue];
-    NSLog(@"client received message of code %d, msg %@", code, message);
+//    NSLog(@"client received message of code %d, msg %@", code, message);
     switch (code) {
         case ColyseusProtocol_USER_ID: {
             self.ID = [self stringifyData:[message safeObjectAtIndex:1]];
-            for(ColyseusEventHandler h in self.onOpen) {
-                h(@[self, [ColyseusEventArgs event]]);
+            for(void (^h)(ColyseusClient *, ColyseusEventArgs *) in self.onOpen) {
+                h(self, [ColyseusEventArgs event]);
             }
         } break;
         case ColyseusProtocol_JOIN_ROOM: {
@@ -166,10 +168,8 @@
                 
                 [room setConnection:[self createConnectionWithPath:room.ID options:[room.options mutableCopy]]];
                 __block ColyseusClient *weakself = self;
-                [room.onLeave addObject:^(NSArray *args) {
-                    if([args count] < 2) {NSLog(@"args < 2"); return;}
-                    ColyseusErrorEventArgs *err = args[1];
-                    [weakself onLeaveRoom:args[0] error:err.message];
+                [room.onLeave addObject:^void(ColyseusRoom *room, ColyseusEventArgs *e) {
+                    [weakself onLeaveRoom:room];
                 }];
 //                room.OnLeave += OnLeaveRoom;
                 
@@ -179,26 +179,26 @@
 //                this.connectingRooms.Remove (requestId);
             }
             else {
-                NSLog(@"Can't Join Room Using RequestID : %d", @(requestId));
+                NSLog(@"Can't Join Room Using RequestID : %d", requestId);
 //                throw new Exception ("can't join room using requestId " + requestId.ToString());
             }
         }break;
         case ColyseusProtocol_JOIN_ERROR: {
-            for(ColyseusEventHandler h in self.onError) {
-                h(@[self, [ColyseusErrorEventArgs errorEventWithMessage:message[2]]]);
+            for(void (^h)(ColyseusClient *, ColyseusErrorEventArgs *) in self.onError) {
+                h(self, [ColyseusErrorEventArgs errorEventWithMessage:message[2]]);
             }
         }break;
         default: {
-            for(ColyseusEventHandler h in self.onMessage) {
-                h(@[self, [ColyseusMessageEventArgs messageEventWithMessage:message[1]]]);
+            for(void (^h)(ColyseusClient *, ColyseusMessageEventArgs *) in self.onMessage) {
+                h(self, [ColyseusMessageEventArgs messageEventWithMessage:message[1]]);
             }
         }break;
     }
 }
 
--(void)onLeaveRoom:(ColyseusRoom *)sender error:(NSString *)error
+-(void)onLeaveRoom:(ColyseusRoom *)sender
 {
-    NSLog(@"onLeaveRoom, reason %@", error);
+    NSLog(@"Left room %@", sender.ID);
     [self.rooms removeObjectForKey:sender.ID];
 }
 

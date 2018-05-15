@@ -46,26 +46,26 @@
             [enqueuedCalls removeObjectAtIndex:0];
         } while ([enqueuedCalls count]);
     }
-    for(ColyseusEventHandler e in _onOpen) {
-        e(@[self, [ColyseusEventArgs event]]);
+    for(void (^e)(ColyseusConnection *, ColyseusEventArgs *) in _onOpen) {
+        e(self, [ColyseusEventArgs event]);
     }
 }
 - (void)webSocket:(PSWebSocket *)webSocket didFailWithError:(NSError *)error {
-    for(ColyseusEventHandler e in _onError) {
-        e(@[self, [ColyseusErrorEventArgs errorEventWithMessage:[error description]]]);
+    for(void (^e)(ColyseusConnection *, ColyseusErrorEventArgs *) in _onError) {
+        e(self, [ColyseusErrorEventArgs errorEventWithMessage:[error description]]);
     }
 //    NSLog(@"didFailWithError %@", [error description]);
 }
 - (void)webSocket:(PSWebSocket *)webSocket didReceiveMessage:(id)message {
-    for(ColyseusEventHandler e in _onMessage) {
-        e(@[self, [ColyseusMessageEventArgs messageEventWithMessage:message]]);
+    for(void (^e)(ColyseusConnection *, ColyseusMessageEventArgs *) in _onMessage) {
+        e(self, [ColyseusMessageEventArgs messageEventWithMessage:message]);
     }
 //    NSLog(@"didReceiveMessage %@", message);
 }
 - (void)webSocket:(PSWebSocket *)webSocket didCloseWithCode:(NSInteger)code reason:(NSString *)reason wasClean:(BOOL)wasClean {
     _isOpen = NO;
-    for(ColyseusEventHandler e in _onClose) {
-        e(@[self, [ColyseusErrorEventArgs errorEventWithMessage:reason]]);
+    for(void (^e)(ColyseusConnection *, ColyseusErrorEventArgs *) in _onClose) {
+        e(self, [ColyseusErrorEventArgs errorEventWithMessage:reason]);
     }
 //    NSLog(@"Socket closed with code %d, reason %@, wasClean %d", code, reason, wasClean);
 }

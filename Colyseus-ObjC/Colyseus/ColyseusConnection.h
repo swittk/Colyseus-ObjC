@@ -9,6 +9,8 @@
 #import <Foundation/Foundation.h>
 #import "PSWebSocket.h"
 #import "ColyseusObjCCommons.h"
+#import "ColyseusMessageEventArgs.h"
+
 @class ColyseusConnection;
 
 @interface ColyseusConnection : NSObject <PSWebSocketDelegate>
@@ -17,16 +19,16 @@
 }
 @property (readonly) NSURL *url;
 ///@[ColyseusConnection, ColyseusEventArgs]
-@property (retain) NSMutableArray <ColyseusEventHandler>*onOpen;
+@property (retain) NSMutableArray <void (^)(ColyseusConnection *, ColyseusEventArgs *)>*onOpen;
 
 ///@[ColyseusConnection, ColyseusErrorEventArgs]
-@property (retain) NSMutableArray <ColyseusEventHandler>*onClose;
+@property (retain) NSMutableArray <void (^)(ColyseusConnection *, ColyseusErrorEventArgs *)>*onClose;
 
 ///@[ColyseusConnection, ColyseusMessageEventArgs]
-@property (retain) NSMutableArray <ColyseusEventHandler>*onMessage;
+@property (retain) NSMutableArray <void (^)(ColyseusConnection *, ColyseusMessageEventArgs *)>*onMessage;
 
 ///@[ColyseusConnection, ColyseusErrorEventArgs]
-@property (retain) NSMutableArray <ColyseusEventHandler>*onError;
+@property (retain) NSMutableArray <void (^)(ColyseusConnection *, ColyseusErrorEventArgs *)>*onError;
 
 @property (readonly) BOOL isOpen;
 

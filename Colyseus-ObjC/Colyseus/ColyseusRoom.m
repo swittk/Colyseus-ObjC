@@ -49,7 +49,7 @@
 -(void)recv:(NSData *)data {
     if (data != nil)
     {
-        NSLog(@"Data is type %@", [data class]);
+//        NSLog(@"Data is type %@", [data class]);
         [self parseMessage:data];
     }
 }
@@ -63,29 +63,24 @@
     
     ColyseusRoom *weakself = self;
     
-    [connection.onMessage addObject:^(NSArray *args) {
-//        NSLog(@"onMessage");
-        if([args count] < 2) return;
-        ColyseusMessageEventArgs *eventArgs = args[1];
-        [weakself recv:eventArgs.message];
+    [connection.onMessage addObject:^void(ColyseusConnection *c, ColyseusMessageEventArgs *e) {
+        [weakself recv:(NSData *)e.message];
     }];
     
-    [connection.onClose addObject:^(NSArray *args) {
-        if([args count] < 2) return;
-        //        NSObject *sender = args[0];
-        for(ColyseusEventHandler h in weakself.onLeave) {
-            h(@[self, args[1]]);
+    [connection.onClose addObject:^void(ColyseusConnection *c, ColyseusErrorEventArgs *e) {
+        for(void (^h)(ColyseusRoom *, ColyseusErrorEventArgs *) in weakself.onLeave) {
+            h(self, e);
         }
     }];
     
-    [connection.onError addObject:^(NSArray *args) {
-        for(ColyseusEventHandler h in weakself.onError) {
-            h(@[self, args[1]]);
+    [connection.onError addObject:^void(ColyseusConnection *c, ColyseusErrorEventArgs *e) {
+        for(void (^h)(ColyseusRoom *, ColyseusErrorEventArgs *) in weakself.onError) {
+            h(self, e);
         }
     }];
     
-    for(ColyseusEventHandler h in weakself.onReadytoConnect) {
-        h(@[self, [ColyseusEventArgs new]]);
+    for(void (^h)(ColyseusRoom *, ColyseusEventArgs *) in weakself.onReadytoConnect) {
+        h(self, [ColyseusEventArgs new]);
     }
 }
 
@@ -104,14 +99,14 @@
         
         if ([self.onStateChange count]) {
             ColyseusRoomUpdateEventArgs *args = [[ColyseusRoomUpdateEventArgs alloc] initWithState:[IndexedDictionary dictionaryWithDictionary:state] isFirstState:YES];
-            for(ColyseusEventHandler h in self.onStateChange) {
-                h(@[self, args]);
+            for(void (^h)(ColyseusRoom *room, ColyseusRoomUpdateEventArgs *u) in self.onStateChange) {
+                h(self, args);
             }
             //        self.OnStateChange(self, new RoomUpdateEventArgs (state, true));
         }
     }
     
-    NSLog(@"set previous state %@", encodedState);
+//    NSLog(@"set previous state %@", encodedState);
     self.previousState = encodedState;
 }
 
@@ -119,8 +114,8 @@
     if (self.ID != nil) {
         [self.connection close];
     } else {
-        for(ColyseusEventHandler h in self.onLeave) {
-            h(@[self, [ColyseusEventArgs new]]);
+        for(void (^h)(ColyseusRoom *room, ColyseusEventArgs *e) in self.onLeave) {
+            h(self, [ColyseusEventArgs new]);
         }
 //        this.OnLeave.Invoke (this, new EventArgs ());
     }
@@ -150,23 +145,22 @@
         NSLog(@"First index (code) is not NSNumber; error"); return;
     }
     int code = [codeNumber intValue];
-    NSLog(@"Message with code of %d", code);
+//    NSLog(@"Message with code of %d", code);
     switch (code) {
         case ColyseusProtocol_JOIN_ROOM: {
             self.sessionID = [self stringifyData:[message safeObjectAtIndex:1]];
-            for(ColyseusEventHandler h in self.onJoin) {
-                h(@[self, [ColyseusMessageEventArgs messageEventWithMessage:self.sessionID]]);
+            for(void (^h)(ColyseusRoom *, ColyseusMessageEventArgs *) in self.onJoin) {
+                h(self, [ColyseusMessageEventArgs messageEventWithMessage:self.sessionID]);
             }
         } break;
         case ColyseusProtocol_JOIN_ERROR: {
-            for(ColyseusEventHandler h in self.onError) {
-                h(@[
+            for(void (^h)(ColyseusRoom *, ColyseusErrorEventArgs *) in self.onError) {
+                h(
                     self,
                     [ColyseusErrorEventArgs errorEventWithMessage:
                      [NSString stringWithFormat:@"Join Error : %@",
                      [self stringifyData:[message safeObjectAtIndex:1]]]
                      ]
-                    ]
                   );
             }
         }break;
@@ -176,8 +170,8 @@
         case ColyseusProtocol_ROOM_STATE: {
             //This is a message that has been sent from messagepack; therefore it must be already encoded.. probably a form of string
             NSData *encodedState = [message safeObjectAtIndex:2]; //Original code was index 1, but somehow I received index of 2
-            NSLog(@"ROOM_STATE message is %@", message);
-            NSLog(@"try stringify [1] : %@", [self stringifyData:message[1]]); //As seen here, index 1 is simply the roomId or connectionId, something of that sort
+//            NSLog(@"ROOM_STATE message is %@", message);
+//            NSLog(@"try stringify [1] : %@", [self stringifyData:message[1]]); //As seen here, index 1 is simply the roomId or connectionId, something of that sort
             if([encodedState isKindOfClass:[NSData class]]) {
                 NSLog(@"ROOM_STATE is NSData!");
             }
@@ -199,16 +193,15 @@
         case ColyseusProtocol_ROOM_STATE_PATCH: {
             //This is a message that has been sent from messagepack; therefore it must be already encoded.. probably a form of string
             //var data = (List<object>) message [1];
-            NSLog(@"ROOM_STATE_PATCH message is %@", message);
+//            NSLog(@"ROOM_STATE_PATCH message is %@", message);
             id msg = [message safeObjectAtIndex:2]; //Original code was index 1, but somehow I received index of 2
             NSData *data = [self dataify:msg];
-            NSLog(@"ROOM_STATE_PATCH Data is of class %@", [[data class] description]);
+//            NSLog(@"ROOM_STATE_PATCH Data is of class %@", [[data class] description]);
             if([data isKindOfClass:[NSString class]]) {
                 NSLog(@"ROOM_STATE is NSString!");
                 NSLog(@"it is %@", data);
                 data = [(NSString *)data dataUsingEncoding:NSUTF8StringEncoding];
             }
-            //TODO: Figure out what to do with this... Or if I'm even right
 //            byte[] patches = new byte[data.Count];
 //            uint i = 0;
 //            foreach (var b in data) {
@@ -217,14 +210,15 @@
 //            }
 //
 //            this.Patch (patches);
+            //All this code made sense once I found that message[2] is an array of numbers
+            //This number to byte loop code is implemented in patch:
             [self patch:data];
         }break;
         case ColyseusProtocol_ROOM_DATA: {
-            if ([self.onMessage count]) {
-                for(ColyseusEventHandler h in self.onMessage) {
-                    NSString *msg = [self stringifyData:message[1]];
-                    h(@[self, [ColyseusMessageEventArgs messageEventWithMessage:msg]]);
-                }
+            //Again, message index of 1 is room ID
+            NSObject *msg = [message safeObjectAtIndex:2];
+            for(void (^h)(ColyseusRoom *, ColyseusMessageEventArgs *) in self.onMessage) {
+                h(self, [ColyseusMessageEventArgs messageEventWithMessage:msg]);
             }
         }break;
         default:
@@ -236,7 +230,7 @@
 
 -(void)patch:(NSData *)delta {
     NSInteger alloclen = _previousState.length + delta.length;
-    NSLog(@"allocating %d", alloclen);
+//    NSLog(@"allocating %d", alloclen);
     char *buffer = (char *)malloc(_previousState.length + delta.length);
     int newStateSize = delta_apply([_previousState bytes], (int)_previousState.length, [delta bytes], (int)delta.length, buffer);
     if(newStateSize == -1) {
@@ -253,8 +247,8 @@
 //    this.Set(newState);
     [self set:[IndexedDictionary dictionaryWithDictionary:newState]];
     
-    for(ColyseusEventHandler h in self.onStateChange) {
-        h(@[self, [ColyseusRoomUpdateEventArgs roomUpdateEventWithState:self.state isFirstState:NO]]);
+    for(void (^h)(ColyseusRoom *, ColyseusRoomUpdateEventArgs *) in self.onStateChange) {
+        h(self, [ColyseusRoomUpdateEventArgs roomUpdateEventWithState:self.state isFirstState:NO]);
     }
 //    if (this.OnStateChange)
 //        this.OnStateChange.Invoke(this, new RoomUpdateEventArgs(this.state));

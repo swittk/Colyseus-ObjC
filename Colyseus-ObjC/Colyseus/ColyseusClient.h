@@ -8,6 +8,7 @@
 
 #import <Foundation/Foundation.h>
 #import "ColyseusObjCCommons.h"
+#import "ColyseusMessageEventArgs.h"
 
 @class ColyseusRoom;
 @class ColyseusConnection;
@@ -16,10 +17,10 @@
 @interface ColyseusClient : NSObject
 @property (retain) NSString *ID;
 
-@property (retain) NSMutableArray <ColyseusEventHandler>*onOpen;
-@property (retain) NSMutableArray <ColyseusEventHandler>*onClose;
-@property (retain) NSMutableArray <ColyseusEventHandler>*onError;
-@property (retain) NSMutableArray <ColyseusEventHandler>*onMessage; //MessageEventArgs
+@property (retain) NSMutableArray <void (^)(ColyseusClient *, ColyseusEventArgs *)>*onOpen;
+@property (retain) NSMutableArray <void (^)(ColyseusClient *, ColyseusErrorEventArgs *)>*onClose;
+@property (retain) NSMutableArray <void (^)(ColyseusClient *, ColyseusErrorEventArgs *)>*onError;
+@property (retain) NSMutableArray <void (^)(ColyseusClient *, ColyseusMessageEventArgs *)>*onMessage; //MessageEventArgs
 -(id)initWithEndpoint:(NSString *)endPoint ID:(NSString *)ID;
 -(void)recv:(id)data;
 -(void)connect;

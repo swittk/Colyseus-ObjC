@@ -40,13 +40,13 @@ Joins the room of the specified name using the provided options
 
 ### ColyseusRoom
 
-#### -(id)initWithName:(NSString *)name options:(NSDictionary <NSString *, id>*)options;
+#### -(id)initWithName:(NSString *)name options:(NSDictionary <NSString \*, id>\*)options;
 
 #### -(void)connect;
 
 #### -(void)leave;
 
-#### -(void)send:(NSObject *)data;
+#### -(void)send:(NSObject \*)data;
 data : The data to send.
 
 

@@ -92,11 +92,14 @@
     }
 }
 
--(ColyseusRoom *)join:(NSString *)roomName options:(nullable NSMutableDictionary <NSString *, id>*)options {
-    if (options == nil) {
+-(ColyseusRoom *)join:(NSString *)roomName options:(nullable NSDictionary <NSString *, id>*)opts {
+    NSMutableDictionary *options;
+    if (opts == nil) {
         options = [NSMutableDictionary new];
     }
-    
+    if(![opts isKindOfClass:[NSMutableDictionary class]]) {
+        options = [opts mutableCopy];
+    }    
     int requestId = ++self.requestId;
     [options setObject:@(requestId) forKey:@"requestId"];
     

@@ -25,5 +25,5 @@
 -(void)recv:(id)data;
 -(void)connect;
 -(void)close;
--(ColyseusRoom *)join:(NSString *)roomName options:(nullable NSMutableDictionary <NSString *, id>*)options;
+-(ColyseusRoom *)join:(NSString *)roomName options:(nullable NSDictionary <NSString *, id>*)options;
 @end

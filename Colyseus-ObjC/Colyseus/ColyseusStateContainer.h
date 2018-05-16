@@ -31,7 +31,7 @@ typedef ColyseusListener FallbackPatchListener; //should accept ColyseusPatchObj
  Listens for changes to the state
  
  @param segments : The regex to match for the segment
- @param callback : Guaranteed array of length [1] for the callback, containing a ColyseusDataChange object.
+ @param callback : Guaranteed array of length [1] for the callback, the object being a ColyseusDataChange object (Just cast (ColyseusDataChange *)(array[0])).
  */
 -(PatchListener *)listen:(NSString *)segments
                 callback:(ColyseusAction /*Action<DataChange>*/)callback;

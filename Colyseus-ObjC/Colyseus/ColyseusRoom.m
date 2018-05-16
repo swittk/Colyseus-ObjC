@@ -239,6 +239,7 @@
     }
 //    _previousState = Fossil.Delta.Apply (this._previousState, delta);
     NSData *newStateData = [NSData dataWithBytes:buffer length:newStateSize];
+    self.previousState = newStateData;
     free(buffer);
     
     NSDictionary *newState = [newStateData mp_dict:nil];//MsgPack.Deserialize<IndexedDictionary<string, object>> (new MemoryStream(this._previousState));

@@ -19,6 +19,82 @@ This code is mainly based on Colyseus's Unity C# client implementation and partl
 Copy the whole Colyseus-ObjC folder into your project, import headers as you need. Main ones would be ColyseusRoom.h, ColyseusClient.h, and ColyseusMessageEventArgs.h
 
 
+## Usage
+
+### ColyseusClient
+
+#### -(id)initWithEndpoint:(NSString *)endPoint ID:(NSString *)ID;
+Creates a client with a connection to the specified endpoint.
+* endPoint : Usually, this is the url to your server
+* ID : This parameter is useful for rejoining rooms after a disconnection. If this parameter is specified, the specified ID is used for subsequent connections.
+
+#### -(void)connect;
+Starts the client connection
+
+#### -(void)close;
+Closes the client connection
+
+#### -(ColyseusRoom *)join:(NSString *)roomName options:(nullable NSDictionary <NSString \*, id>\*)options;
+Joins the room of the specified name using the provided options
+
+
+### ColyseusRoom
+
+#### -(id)initWithName:(NSString *)name options:(NSDictionary <NSString *, id>*)options;
+
+#### -(void)connect;
+
+#### -(void)leave;
+
+#### -(void)send:(NSObject *)data;
+data : The data to send.
+
+
+
+### Example Usage
+```
+ColyseusClient *client = [[ColyseusClient alloc] initWithEndpoint:@"ws://localhost:4000" ID:nil];
+
+__block MyClientClass *weakself = self;
+[client.onOpen addObject:^void(ColyseusClient *c, ColyseusEventArgs *e) {
+    NSLog(@"Connection open");
+    
+    //Once the connection is open, join a room
+    ColyseusRoom *room = [client join:@"mine" options:@{@"name" : @"MyAwesomeName"}];
+    
+    __block ColyseusRoom *weakroom = room;
+    [room.onJoin addObject:^void(ColyseusRoom *r, ColyseusMessageEventArgs *m) {
+        NSLog(@"Joined with SessionID: %@",[m message]);
+        [weakroom connect];
+        [weakroom send:@{@"type":@"nameset", @"name" : @"switt", @"ts" : @([[NSDate date] timeIntervalSince1970])}];
+    }];
+    [room.onMessage addObject:^void(ColyseusRoom *r, ColyseusMessageEventArgs *m) {
+        NSLog(@"Room: Message received %@",[m message]);
+    }];
+    [room.onStateChange addObject:^void(ColyseusRoom *ro, ColyseusRoomUpdateEventArgs *r) {
+        NSLog(@"State Change; IsFirst %d, Data : %@", r.isFirstState, [r state]);
+    }];
+    [room.onError addObject:^void(ColyseusRoom *r, ColyseusErrorEventArgs *e) {
+        NSLog(@"Error; %@",[e message]);
+    }];
+    
+    // Listen for changes at players.playerName.position.(x or y or z)
+    // Here, ":string" will capture playerName, and ":axis" will capture the axis.
+    // The @path property in ColyseusDataChange will store strings corresponding to our capture blocks
+    [room listen:@"players/:string/position/:axis" callback:^(NSArray *arguments) {
+        ColyseusDataChange *change = [arguments firstObject];
+        NSLog(@"Axis:%@ changed for player:%@, operation:%@, value:%@", change.path[@"axis"], change.path[@"string"], change.operation, change.value);
+    }];
+    [room listen:@"players/:*" callback:^(NSArray *arguments) {
+        ColyseusDataChange *change = [arguments firstObject];
+        NSLog(@"Mutated players, operation:%@, player info is %@", change.operation, change.value);
+        [players setObject:change.value forKey:change.path[@"*"]];
+    }];
+}];
+[client connect];
+```
+
+
 
 
 ## TODOs

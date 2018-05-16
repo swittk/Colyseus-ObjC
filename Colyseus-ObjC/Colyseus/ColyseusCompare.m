@@ -23,11 +23,11 @@
                           path:(NSArray <NSString *>*)path {
     IndexedDictionary <NSString *, NSObject *>*mirrorDict = [IndexedDictionary new];
     for (int i = 0; i < [mirror count]; i++) {
-        [mirrorDict addObject:mirror[i] withKey:@(i).stringValue];
+        [mirrorDict setObject:mirror[i] forKey:@(i).stringValue];
     }
     IndexedDictionary <NSString *, NSObject *>*objDict = [IndexedDictionary new];
     for (int i = 0; i < [objArray count]; i++) {
-        [objDict addObject:objArray[i] withKey:@(i).stringValue];
+        [objDict setObject:objArray[i] forKey:@(i).stringValue];
     }
     
     [self generateWithDictionaryMirror:mirrorDict objDict:objDict patches:patches path:path];
@@ -35,8 +35,8 @@
 
 // Dirty check if obj is different from mirror, generate patches and update mirror
 +(void)generateWithDictionaryMirror:(IndexedDictionary<NSString *,NSObject *> *)mirror objDict:(IndexedDictionary<NSString *,NSObject *> *)objDict patches:(NSMutableArray <ColyseusPatchObject *> *)patches path:(NSArray<NSString *> *)path {
-    NSArray <NSString *>*newKeys = objDict.keys;
-    NSArray <NSString *>*oldKeys = mirror.keys;
+    NSArray <NSString *>*newKeys = [objDict allKeys];
+    NSArray <NSString *>*oldKeys = [mirror allKeys];
     BOOL deleted = NO;
     
     for (int i = 0; i < [oldKeys count]; i++)
@@ -184,5 +184,7 @@
 @end
 
 @implementation ColyseusPatchObject
-
+-(NSString *)description {
+    return [NSString stringWithFormat:@"path : %@,operation : %@,value: %@", self.path, self.operation, self.value];
+}
 @end

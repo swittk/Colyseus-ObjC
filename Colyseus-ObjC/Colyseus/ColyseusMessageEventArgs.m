@@ -7,7 +7,6 @@
 //
 
 #import "ColyseusMessageEventArgs.h"
-#import "AXMutableOrderedDictionary.h"
 
 @implementation ColyseusEventArgs
 +(ColyseusEventArgs *)event {

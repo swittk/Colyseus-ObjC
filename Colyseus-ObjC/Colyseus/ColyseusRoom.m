@@ -10,7 +10,6 @@
 #import "ColyseusObjCCommons.h"
 #import "MPMessagePack.h"
 #import "ColyseusConnection.h"
-#import "AXMutableOrderedDictionary.h"
 #import "ColyseusMessageEventArgs.h"
 #import "fossilize.h"
 
@@ -159,7 +158,7 @@
                     self,
                     [ColyseusErrorEventArgs errorEventWithMessage:
                      [NSString stringWithFormat:@"Join Error : %@",
-                     [self stringifyData:[message safeObjectAtIndex:1]]]
+                     [self stringifyData:[message safeObjectAtIndex:2]]]
                      ]
                   );
             }

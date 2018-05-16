@@ -7,7 +7,7 @@
 //
 
 #import <Foundation/Foundation.h>
-#import "AXMutableOrderedDictionary.h"
+#import "ColyseusObjCCommons.h"
 
 @interface ColyseusEventArgs : NSObject
 +(ColyseusEventArgs *)event;

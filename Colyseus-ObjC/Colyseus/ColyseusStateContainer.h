@@ -8,8 +8,10 @@
 
 #import <Foundation/Foundation.h>
 #import "ColyseusObjCCommons.h"
-#import "AXMutableOrderedDictionary.h"
 @class ColyseusListener;
+@class ColyseusDataChange;
+@class ColyseusPatchObject;
+
 typedef ColyseusListener PatchListener; //should accept ColyseusDataChange as argument
 typedef ColyseusListener FallbackPatchListener; //should accept ColyseusPatchObject as argument
 
@@ -22,9 +24,18 @@ typedef ColyseusListener FallbackPatchListener; //should accept ColyseusPatchObj
 -(id)initWithState:(IndexedDictionary <NSString *, NSObject *>*)state;
 -(NSArray <ColyseusPatchObject *>*)set:(IndexedDictionary <NSString *, NSObject *>*)newData;
 -(void)registerPlaceholder:(NSString *)placeholder matcher:(NSRegularExpression *)matcher;
+
 -(FallbackPatchListener *)listen:(ColyseusAction)callback;
+
+/**
+ Listens for changes to the state
+ 
+ @param segments : The regex to match for the segment
+ @param callback : Guaranteed array of length [1] for the callback, containing a ColyseusDataChange object.
+ */
 -(PatchListener *)listen:(NSString *)segments
                 callback:(ColyseusAction /*Action<DataChange>*/)callback;
+
 -(void)removeListener:(PatchListener *)listener;
 -(void)removeAllListeners;
 @end

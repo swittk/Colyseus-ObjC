@@ -108,6 +108,7 @@
 }
 
 -(void)checkPatches:(NSArray <ColyseusPatchObject *>*)patches {
+    NSLog(@"checking patches %@", patches);
     for (long i = [patches count] - 1; i >= 0; i--)
     {
         BOOL matched = NO;

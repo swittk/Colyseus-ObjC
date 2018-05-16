@@ -7,12 +7,13 @@
 //
 
 #import <Foundation/Foundation.h>
-#import "AXMutableOrderedDictionary.h"
+#import "ColyseusObjCCommons.h"
 
 @interface ColyseusPatchObject : NSObject
 @property (retain) NSMutableArray <NSString *>*path;
 @property (retain) NSString *operation;
 @property (retain) NSObject *value;
+-(NSString *)description;
 @end
 
 @interface ColyseusCompare : NSObject

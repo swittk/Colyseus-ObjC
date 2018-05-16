@@ -9,6 +9,8 @@
 #ifndef ColyseusObjCCommons_h
 #define ColyseusObjCCommons_h
 
+typedef NSMutableDictionary IndexedDictionary;
+
 typedef void(^ColyseusEventHandler)(NSArray *arguments);
 typedef ColyseusEventHandler ColyseusAction;
 
